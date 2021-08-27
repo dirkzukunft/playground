@@ -1,3 +1,7 @@
+### Query Pexels
+GET https://api.pexels.com/v1/search?query=pizza
+Authorization: {{$dotenv KEY_PEXELS}}
+
 ### GET Request
 GET http://localhost:3000/?query=testQuery
 
