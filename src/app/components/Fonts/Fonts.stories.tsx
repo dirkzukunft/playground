@@ -6,4 +6,4 @@ export default {
   component: Fonts,
 };
 
-export const list = (): JSX.Element => <Fonts />;
+export const fontsList = (): JSX.Element => <Fonts />;
