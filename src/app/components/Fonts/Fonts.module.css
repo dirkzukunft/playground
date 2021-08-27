@@ -1,0 +1,7 @@
+.fonts {
+  font-size: 1.3rem;
+}
+
+.fontDetails p:nth-of-type(2) {
+  color: red;
+}
