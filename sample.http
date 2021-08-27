@@ -2,6 +2,13 @@
 GET https://api.pexels.com/v1/search?query=pizza
 Authorization: {{$dotenv KEY_PEXELS}}
 
+### Query Unsplash
+GET https://api.unsplash.com/search/photos?query=pizza
+Authorization: {{$dotenv KEY_UNSPLASH}}
+
+### Query Pixabay
+GET https://pixabay.com/api/?key={{$dotenv KEY_PIXABAY}}&q=pizza
+
 ### GET Request
 GET http://localhost:3000/?query=testQuery
 
