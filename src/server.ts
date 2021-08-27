@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import { images } from './api/images';
 dotenv.config();
 
 const port = process.env.EXPRESS_PORT || 3001;
@@ -9,6 +10,10 @@ app.disable('x-powered-by');
 
 app.use('/storybook', express.static('dist/storybook'));
 app.use(express.static('dist/app'));
+
+app.get('/api/images', async (req, res) => {
+  await images(req, res);
+});
 
 app.get('/api/', async (_req, res) => {
   res.status(200).json({ message: 'API is running' });
