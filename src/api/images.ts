@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { Request, Response } from 'express';
 import fetch from 'node-fetch';
+import { sha256 } from '../utils/crypto';
 dotenv.config();
 
 const apis = [
@@ -47,15 +48,13 @@ export async function images(_req: Request, res: Response): Promise<void> {
 
     try {
       const results = await Promise.all(responses.map((response) => response.json()));
-
       const resultCounts = results.map((result, index) => {
         return {
           api: apis[index].name,
           resultCount: result[apis[index].resultKeys.count],
         };
       });
-
-      res.status(200).json(resultCounts);
+      res.status(200).json({ ...resultCounts, ...{ sha256: sha256('test') } });
     } catch {
       res.status(503).send('');
     }
