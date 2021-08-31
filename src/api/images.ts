@@ -4,10 +4,20 @@ import fetch from 'node-fetch';
 import { sha256 } from '../utils/crypto';
 dotenv.config();
 
-const apis = [
+type api = {
+  name: string;
+  key: string;
+  url: string;
+  resultKeys: {
+    count: string;
+    results: string;
+  };
+};
+
+const apis: api[] = [
   {
     name: 'Unsplash',
-    key: process.env.KEY_UNSPLASH,
+    key: process.env.KEY_UNSPLASH || '',
     url: `https://api.unsplash.com/search/photos?query=pizza`,
     resultKeys: {
       count: 'total',
@@ -16,7 +26,7 @@ const apis = [
   },
   {
     name: 'Pexels',
-    key: process.env.KEY_PEXELS,
+    key: process.env.KEY_PEXELS || '',
     url: `https://api.pexels.com/v1/search?query=pizza`,
     resultKeys: {
       count: 'total_results',
@@ -25,7 +35,8 @@ const apis = [
   },
   {
     name: 'Pixabay',
-    url: `https://pixabay.com/api/?key=${process.env.KEY_PIXABAY}&q=pizza`,
+    url: `https://pixabay.com/api/?key=${process.env.KEY_PIXABAY || ''}&q=pizza`,
+    key: ``,
     resultKeys: {
       count: 'total',
       results: 'hits',
@@ -40,7 +51,7 @@ export async function images(_req: Request, res: Response): Promise<void> {
         .fill(``)
         .map((_value, i) =>
           fetch(apis[i].url, {
-            headers: { Authorization: apis[i].key || `` },
+            headers: apis[i].key ? { Authorization: apis[i].key } : {},
             timeout: 2000,
           })
         )
@@ -55,8 +66,8 @@ export async function images(_req: Request, res: Response): Promise<void> {
         };
       });
       res.status(200).json({ ...resultCounts, ...{ sha256: sha256('test') } });
-    } catch {
-      res.status(503).send('');
+    } catch (error) {
+      res.status(503).json(error);
     }
   } catch {
     res.status(504).send('');
