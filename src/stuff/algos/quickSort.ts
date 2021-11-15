@@ -1,3 +1,7 @@
+// const a = [12, 8, 3, 9, 7, 4, 87, 0, -17, 33, 5];
+// quickSort(a);
+// console.log(a);
+
 export default function quickSort(list: number[], start = 0, end = list.length - 1): void {
   if (start >= end) return;
   const index = partition(list, start, end);
