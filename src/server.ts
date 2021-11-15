@@ -1,10 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import { images } from './api/images';
-import bfs from './stuff/algos/graph/bfs';
-import dfs from './stuff/algos/graph/dfs';
-import isDAG from './stuff/algos/graph/isDAG';
-import { simpleUnweightedGraph } from './stuff/algos/graph/types';
+import Graph from './stuff/algos/graph/Graph';
 dotenv.config();
 
 const port = process.env.EXPRESS_PORT || 3001;
@@ -33,26 +30,33 @@ app.listen(port, async () => {
 // const a = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
 // const a = [12, 8, 3, 9, 7, 4, 87, 0, -17, 33, 5];
 
-const graph: simpleUnweightedGraph = {
-  vertex1: ['vertex3', 'vertex4'],
-  vertex2: ['vertex8'],
-  vertex3: ['vertex1', 'vertex2', 'vertex7'],
-  vertex4: ['vertex1', 'vertex2', 'vertex3'],
-  vertex5: ['vertex6', 'vertex2'],
-  vertex6: ['vertex5', 'vertex7'],
-  vertex7: ['vertex5', 'vertex6'],
-  vertex8: [],
-  vertexNoEdges: [],
-  vertexUnconnected: ['vertexNoEdges'],
-};
-const cyclic: simpleUnweightedGraph = { node1: ['node2'], node2: ['node3'], node3: ['node1'] };
-const uncyclic: simpleUnweightedGraph = {
-  node1: ['node2'],
-  node2: ['node3'],
-  node3: ['node4'],
-  node4: ['node5'],
-  node5: [],
-};
+// const graph: simpleUnweightedGraph = {
+//   vertex1: ['vertex3', 'vertex4'],
+//   vertex2: ['vertex8'],
+//   vertex3: ['vertex1', 'vertex2', 'vertex7'],
+//   vertex4: ['vertex1', 'vertex2', 'vertex3'],
+//   vertex5: ['vertex6', 'vertex2'],
+//   vertex6: ['vertex5', 'vertex7'],
+//   vertex7: ['vertex5', 'vertex6'],
+//   vertex8: [],
+//   vertexNoEdges: [],
+//   vertexUnconnected: ['vertexNoEdges'],
+// };
+// const cyclic: simpleUnweightedGraph = { node1: ['node2'], node2: ['node3'], node3: ['node1'] };
+// const uncyclic: simpleUnweightedGraph = {
+//   node1: ['node2'],
+//   node2: ['node3'],
+//   node3: ['node4'],
+//   node4: ['node5'],
+//   node5: [],
+// };
+
+const g = new Graph([
+  ['a', 'b', 3, true],
+  ['b', 'c'],
+  ['d', 'e', 2.5, true],
+]);
+console.log(g.edges, g.vertices);
 
 // console.log(binarySearch(a, 7));
 
