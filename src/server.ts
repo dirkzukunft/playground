@@ -51,11 +51,27 @@ app.listen(port, async () => {
 //   node5: [],
 // };
 
-const g = new Graph([
-  ['a', 'b', 3, true],
-  ['b', 'c'],
-  ['d', 'e', 2.5, true],
-]);
+const g = new Graph(
+  [
+    ['a', 'b', 2],
+    ['a', 'c', 4],
+    ['b', 'c', 5],
+    ['b', 'd', 4],
+    ['b', 'e', 9],
+    ['c', 'e', 1],
+    ['d', 'e', 2],
+    ['c', 'g', 2],
+    ['c', 'h', 7],
+    ['g', 'h', 3],
+    ['g', 'f', 1],
+    ['h', 'j', 5],
+    ['g', 'j', 8],
+    ['f', 'i', 2],
+    ['i', 'j', 6],
+    ['g', 'i', 6],
+  ],
+  true
+);
 console.log(g.edges, g.vertices);
 
 // console.log(binarySearch(a, 7));
